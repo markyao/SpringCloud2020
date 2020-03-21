@@ -12,6 +12,7 @@
     <modules>
         <module>cloud-provider-payment8001</module>
         <module>cloud-consumer-order80</module>
+        <module>cloud-api-common</module>
     </modules>
     <!-- 统一管理jar包版本-->
     <properties>
@@ -22,6 +23,7 @@
         <log4j.version>2.13.1</log4j.version>
         <mysql.version>8.0.19</mysql.version>
         <mybatis.spring.boot.version>2.1.2</mybatis.spring.boot.version>
+        <hutool-all.version>5.1.0</hutool-all.version>
     </properties>
 
     <!-- 子模块继承之后，提供作用：锁定本+子modle不用写groupId和version -->
