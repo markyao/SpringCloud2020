@@ -11,8 +11,19 @@ spring:
     username: root
     password: 123456
 
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.atguigu.springcloud.com.atguigu.springcloud.entities
   configuration:
     map-underscore-to-camel-case: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: payment8001
