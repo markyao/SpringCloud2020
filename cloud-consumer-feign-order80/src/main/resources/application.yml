@@ -19,3 +19,7 @@ spring:
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000
+logging:
+  level:
+    #feign日志以什么级别监控哪个接口
+    com.atguigu.springlcoud.service.PaymentFeignService: debug
