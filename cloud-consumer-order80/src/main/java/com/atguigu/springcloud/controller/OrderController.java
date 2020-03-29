@@ -48,7 +48,7 @@ public class OrderController {
         if (entity.getStatusCode().is2xxSuccessful()) {
             return entity.getBody();
         }
-        return new CommonResult<>(400, "操作失败");
+        return new CommonResult<Payment>(400, "操作失败");
     }
 
     @GetMapping("/consumer/payment/lb")
