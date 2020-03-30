@@ -1,7 +1,6 @@
 package com.atguigu.springlcoud.controller;
 
 import com.atguigu.springcloud.entities.CommonResult;
-import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springlcoud.service.PaymentFeignService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * @author yaotailin
+ */
 @RestController
 @Slf4j
 public class OrderFeignController {
@@ -23,7 +25,7 @@ public class OrderFeignController {
     }
 
     @GetMapping("/consumer/payment/feign/timeout")
-    public String getPaymentFeignTimeOUt(){
+    public String getPaymentFeignTimeOut(){
         return feignService.getPaymentFeignTimeOut();
     }
 }
