@@ -5,8 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient("CLOUD-PROVIDER-HYSTRIX-PAYMENT")
-public interface PaymentService {
+@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT", fallback = PaymentFallBackService.class)
+public interface PaymentHystrixService {
 
     @GetMapping("payment/hystrix/ok/{id}")
     String paymentInfoOk(@PathVariable("id") Integer id);
