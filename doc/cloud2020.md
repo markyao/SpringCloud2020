@@ -222,14 +222,38 @@ private DiscoveryClient discoveryClient;
 
 spring cloud替换方案
 
-`<dependency>
+pom引入
+
+<dependency>
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-starter-loadbalancer</artifactId>
   <version>2.2.2.RELEASE</version>
-</dependency>`
+</dependency>
 
 Ribbon本地负载均衡VS Nginx服务端负载均衡
 
 软件负载均衡有Nginx、LVS、硬件F5
 
 
+
+## Hystrix
+
+### 概念
+
+熔断：
+
+降级：
+
+限流：
+
+### 配置
+
+pom.xml引入
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+    <version>2.2.2.RELEASE</version>
+</dependency>
+```
