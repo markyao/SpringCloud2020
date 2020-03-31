@@ -224,11 +224,13 @@ spring cloud替换方案
 
 pom引入
 
+```xml
 <dependency>
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-starter-loadbalancer</artifactId>
   <version>2.2.2.RELEASE</version>
 </dependency>
+```
 
 Ribbon本地负载均衡VS Nginx服务端负载均衡
 
@@ -240,11 +242,11 @@ Ribbon本地负载均衡VS Nginx服务端负载均衡
 
 ### 概念
 
-熔断：
+服务熔断：
 
-降级：
+服务降级：
 
-限流：
+服务限流：
 
 ### 配置
 
@@ -257,3 +259,86 @@ pom.xml引入
     <version>2.2.2.RELEASE</version>
 </dependency>
 ```
+
+
+
+消费侧 application.yml
+
+```yml
+feign:
+  hystrix:
+    enabled: true
+```
+
+主启动类
+
+增加注解`@EnableCircuitBreaker`
+
+降级服务方法配置
+
+1，添加如下注解
+
+HystrixCommand:一旦调用服务方法失败并抛出了错误信息后,会自动调用@HystrixCommand标注好的fallbckMethod调用类中的指定方法
+  execution.isolation.thread.timeoutInMilliseconds: value=3线程超时时间3秒钟
+
+```java
+@HystrixCommand(fallbackMethod = "paymentInfoTimeOutHandler", commandProperties = {
+        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+```
+
+2，增加fallback方法
+
+```java
+public String paymentInfoTimeOutHandler(Integer id) {
+    return "线程池：" + Thread.currentThread().getName() + " paymentInfoTimeOutHandler, Id:" + id + " 呜呜。。。";
+}
+```
+
+### 问题
+
+1，每个业务方法配置对应一个兜底方法，代码膨胀，
+
+解决方法：统一和自定义的分开
+
+配置一个全局通用的fallback。普通的可以通过统一的fallback跳转到统一处理结果页面
+
+个别重要专属的配置自己的fallbck
+
+@DefaultProperties(defaultFallback="")
+
+
+
+2，fallback方法和业务逻辑混一起，代码混乱
+
+服务降级，客户端去调用服务端碰上服务端宕机或关闭
+
+解决：
+
+(1)为feign客户端定义的接口增加一个服务降级处理的实现类即可实现解耦
+
+```java
+(1)@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT", fallback = PaymentFallBackService.class)
+
+@Component
+(1)public class PaymentFallBackService implements PaymentHystrixService {
+
+    public String paymentInfoOk(Integer id) {
+        return "-------PaymentFallBackService paymentInfoOk fall back";
+    }
+
+    public String paymentTimeOut(Integer id) {
+        return "-------PaymentFallBackService paymentTimeOut fall back";
+    }
+}
+```
+
+(2)配置统一线程超时时间
+
+```properties
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=6000
+```
+
+常见的异常 运行时异常、超时异常、宕机异常
+
+[Hystrix 超时配置的N种玩法](https://www.cnblogs.com/yinjihuan/p/10940403.html)
+

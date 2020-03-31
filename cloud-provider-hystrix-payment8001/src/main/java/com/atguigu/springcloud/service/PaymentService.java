@@ -1,5 +1,6 @@
 package com.atguigu.springcloud.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,6 @@ public class PaymentService {
      * @param id
      * @return
      */
-    @HystrixCommand(fallbackMethod = "paymentInfoTimeOutHandler", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
-    })
     public String paymentInfoTimeOut(Integer id) {
         long timeOut = 2L;
         try {
