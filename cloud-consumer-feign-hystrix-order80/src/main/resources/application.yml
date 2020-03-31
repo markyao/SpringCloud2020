@@ -13,3 +13,7 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: consume-order80
+
+feign:
+  hystrix:
+    enabled: true
