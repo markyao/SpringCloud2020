@@ -10,7 +10,7 @@ spring:
           uri: https://github.com/markyao/springcloud-config.git
           search-paths:
             - springcloud-config
-          label: master
+      label: master
 
 
 
