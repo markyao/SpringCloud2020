@@ -342,3 +342,4 @@ hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=6000
 
 [Hystrix 超时配置的N种玩法](https://www.cnblogs.com/yinjihuan/p/10940403.html)
 
+## 分布式事务SEATA
