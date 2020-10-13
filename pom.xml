@@ -37,7 +37,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.sorurce>1.8</maven.compiler.sorurce>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
         <log4j.version>2.13.1</log4j.version>
         <mysql.version>8.0.19</mysql.version>
         <mybatis.spring.boot.version>2.1.2</mybatis.spring.boot.version>
